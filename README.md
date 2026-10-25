@@ -18,17 +18,18 @@
 
 ## 📌 Overview
 
-Offline LDAP / directory service configuration & anonymous-bind auditor
+OLdapX is an offline LDAP / directory configuration auditor covering slapd.conf, cn=config, 389-ds/FreeIPA, ApacheDS, ldap.conf, nslcd, pam_ldap, and sssd. It flags anonymous bind, TLS/StartTLS, ACL, rootpw, syncrepl, and LDIF hash issues, with optional consented live anonymous-bind/RootDSE probe. Reports export to TXT, Markdown, JSON, CSV, or SARIF.
 
 ---
 
 ## ✨ Features
 
-- Parsers: slapd.conf, slapd.d/cn=config, 389-ds/FreeIPA dse.ldif, ApacheDS, ldap.conf, nslcd, pam_ldap, sssd
-- Anon-bind, TLS/StartTLS, cipher, TLS_REQCERT, rootpw, olcAccess/aci, limits, syncrepl and LDIF hash rules
-- CWE + MITRE ATT&CK mapping, severity, remediation
-- TXT / MD / JSON / CSV / SARIF exports, --demo self-test
-- Optional consented --probe (anon bind + RootDSE)
+- Parsers for slapd.conf, slapd.d/cn=config, 389-ds/FreeIPA dse.ldif, ApacheDS, ldap.conf, nslcd, pam_ldap, sssd
+- Checks for anon-bind, TLS/StartTLS, ciphers, TLS_REQCERT, rootpw, olcAccess/aci, limits, syncrepl, LDIF hashes
+- CWE + MITRE ATT&CK mapping with severity and remediation text
+- Offline `--root` tree audit and local `--scan`; secret masking by default
+- Optional consented `--probe` for anonymous bind + RootDSE (requires `--i-am-authorized`)
+- TXT / MD / JSON / CSV / SARIF export and `--demo` self-test
 
 ---
 
@@ -42,7 +43,10 @@ Offline LDAP / directory service configuration & anonymous-bind auditor
 ## 🚀 Usage
 
 ```bash
-./OLdapX
+./OLdapX --scan --root ./fs
+./OLdapX --slapd /etc/ldap/slapd.conf --ldif export.ldif --json report.json
+./OLdapX --demo --list-rules
+./OLdapX --help
 ```
 
 ---
